@@ -20,7 +20,7 @@ let hasSeedCount (a,b,c,d,e,f,a',b',c',d',e',f') v =
     getSeeds 9 v |> should equal c'
     getSeeds 10 v |> should equal d'
     getSeeds 11 v |> should equal e'
-    getSeeds 12 v |> should equal f'
+    getSeeds 12 v |> should equal f' 
 
 let playGame numbers =
     let rec play xs game =
@@ -37,7 +37,7 @@ let ``Every house has 4 seeds in it at the start`` () =
 [<Test>]
 let ``When house 1 is used, seeds go to the other houses`` () =
     let board = start South |> useHouse 1
-    board |> hasSeedCount (0,5,5,5,5,4,4,4,4,4,4,4)
+    board |> hasSeedCount (0,5,5,5,5,4,4,4,4,4,4,4) 
 
 [<Test>]
 let ``When house 2 is used, seeds go to the other houses`` () =
@@ -140,11 +140,12 @@ let ``Contiguous captured seeds are taken`` () =
     game |> hasSeedCount (3, 1, 0, 8, 2, 7, 7, 7, 7, 1, 0, 0)
     score game |> should equal (5, 0)
     gameState game |> should equal "North's turn"
-
+    
 [<Test>]
 let ``The original house is skipped when sowing seeds`` () =
     let game = playGame [1; 7; 2; 9; 3; 10; 1; 11; 2; 9; 4; 7; 5; 12; 3; 11; 6]
     game |> hasSeedCount (6, 4, 1, 3, 3, 0, 5, 12, 6, 5, 1, 2)
+
 
 [<Test>]
 let ``Non-contiguous captured seeds are not taken`` () =
@@ -190,4 +191,4 @@ let ``A draw exists when each side has 24 pieces`` () =
  2; 12; 3; 8; 4; 9; 1; 10; 6; 7; 2; 8; 3; 9; 4; 10; 5; 11; 6; 12]
     game |> hasSeedCount (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     score game |> should equal (24, 24)
-    gameState game |> should equal "Game ended in a draw"
+    gameState game |> should equal "Game ended in a draw"  
